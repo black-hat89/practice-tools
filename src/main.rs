@@ -1,6 +1,13 @@
-mod ls_cli_command;
+use flate2::Compression;
+use flate2::write::GzEncoder;
+use std::env::args;
+use std::fs::File;
+use std::io::BufReader;
+use std::io::copy;
+use std::time::Instant;
 
-// main function of this program
+mod file_compression;
+
 fn main() {
-    ls_cli_command::ls_cli();
+    file_compression::compress_file();
 }
