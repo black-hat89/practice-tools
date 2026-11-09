@@ -2,6 +2,7 @@ use std::env::args;
 use std::fs::{self, File};
 use std::io::{self, BufRead, BufReader};
 
+// check for the file and this fn will return an error or a success
 fn check_file(path: &str) -> Result<(), String> {
     match fs::metadata(path) {
         Ok(info) => {
@@ -15,6 +16,7 @@ fn check_file(path: &str) -> Result<(), String> {
     }
 }
 
+// this function count the each line of words in the file and return two positive numbers type
 fn count_file(path: &str) -> Result<(usize, usize), io::Error> {
     let file = File::open(path)?;
     let reader = BufReader::new(file);
@@ -22,6 +24,7 @@ fn count_file(path: &str) -> Result<(usize, usize), io::Error> {
     let mut total_line: usize = 0;
     let mut total_words: usize = 0;
 
+    // loop through each line in file
     for line in reader.lines() {
         let line = line?;
         total_line += 1;
@@ -31,6 +34,7 @@ fn count_file(path: &str) -> Result<(usize, usize), io::Error> {
     Ok((total_line, total_words))
 }
 
+// this fn is write the file in CSV
 fn write_csv(output_path: &str, lines: usize, words: usize) -> Result<(), io::Error> {
     let content = format!("name,value\ntotal_lines,{}\ntotal_words,{}\n", lines, words);
 
